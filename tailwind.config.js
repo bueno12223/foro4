@@ -15,7 +15,11 @@ module.exports = {
         "soft-red": "#ED6368",
         "pale-red": "#FFB8BB",
       },
-      extend: {},
+      extend: {
+        fontFamily: {
+          'sans': ['Rubik', 'cursive']
+        }
+      },
     },
     plugins: [],
   }

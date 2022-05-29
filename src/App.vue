@@ -2,6 +2,7 @@
 import { computed, onBeforeMount, reactive, ref, toRef, toRefs } from 'vue';
 // @ts-ignore
 import ComementListVue from './components/ComementList.vue';
+import Loader from './components/Loader.vue';
 let messages = ref([]);
 let loading = ref(true);
 const socket = window.io('http://localhost:5000');
@@ -13,8 +14,10 @@ socket.on('get_messages', (data: any) => {
 });
 </script>
 <template>
-  <div class="">
-    <div class="m-auto" v-if="loading">Cargandoo..</div>
+  <div class="bg-very-light-gray">
+    <div class="m-auto" v-if="loading">
+      <Loader />
+    </div>
     <div class="m-auto" v-else>
     </div>
     <ComementListVue :messages="messages" />
