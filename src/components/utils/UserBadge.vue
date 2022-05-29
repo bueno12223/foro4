@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
 import { formatRelative } from 'date-fns'
+// @ts-ignore
 import md5 from 'md5'
 const props = defineProps({
     userEmail: {
@@ -10,6 +11,10 @@ const props = defineProps({
     date: {
         type: Number,
         default: () => 1653863802
+    },
+    fullSize: {
+        type: Boolean,
+        default: false,
     }
 })
 const formatDate = computed(() => {
