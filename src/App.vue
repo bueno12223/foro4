@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { computed, onBeforeMount, reactive, ref, toRef, toRefs } from 'vue';
+// @ts-ignore
 import ComementListVue from './components/ComementList.vue';
 let messages = ref([]);
-let loading = ref(false);
+let loading = ref(true);
 const socket = window.io('http://localhost:5000');
 socket.emit('get_messages');
 
@@ -16,12 +17,7 @@ socket.on('get_messages', (data: any) => {
     <div class="m-auto" v-if="loading">Cargandoo..</div>
     <div class="m-auto" v-else>
     </div>
-    <ul v-for="{ id, message } in messages" :key="id">
-      <li>
-        <span>{{ id }}</span>
-        <span>{{ message }}</span>
-      </li>
-    </ul>
+    <ComementListVue :messages="messages" />
   </div>
 
 
