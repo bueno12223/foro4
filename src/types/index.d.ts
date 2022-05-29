@@ -9,6 +9,6 @@ export interface Message {
   userEmail: string;
   likes: number;
   isChanged: boolean;
-  date: string;
+  date: number;
   sub_messages?: Message[];
 }

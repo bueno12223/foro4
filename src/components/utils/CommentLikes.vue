@@ -19,7 +19,7 @@ const props = defineProps({
             <path
                 d="M6.33 10.9c.14 0 .25-.05.35-.15.1-.1.15-.22.15-.36V7h3.32c.13 0 .25-.05.35-.14.1-.1.15-.22.15-.36V5.27a.48.48 0 0 0-.15-.35.48.48 0 0 0-.35-.15H6.83V1.4a.48.48 0 0 0-.15-.36.48.48 0 0 0-.35-.14H4.91a.48.48 0 0 0-.35.14c-.1.1-.15.22-.15.36v3.37H1.08a.48.48 0 0 0-.35.15c-.1.1-.15.22-.15.35V6.5c0 .14.05.26.15.36.1.1.21.14.35.14H4.4v3.4c0 .13.05.25.15.35.1.1.22.15.35.15h1.42Z" />
         </svg>
-        <p class="font-semibold text-moderate-blue">{{ likes }}</p>
+        <p class="font-medium text-moderate-blue">{{ likes }}</p>
         <svg :class="hoveringMinus" @mouseenter="hoveringMinus = 'fill-moderate-blue'" class="cursor-pointer"
             @mouseleave="hoveringMinus = 'fill-light-grayish-blue'" width="11" height="3" fill="none"
             xmlns="http://www.w3.org/2000/svg">
