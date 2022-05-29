@@ -18,6 +18,13 @@ module.exports = {
       extend: {
         fontFamily: {
           'sans': ['Rubik', 'cursive']
+        },
+        gridTemplateColumns: {
+          // Simple 8 row grid
+          'card-layout': '80px  1fr 80px',
+  
+          // Complex site-specific row configuration
+          'layout': '200px minmax(900px, 1fr) 100px',
         }
       },
     },

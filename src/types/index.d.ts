@@ -6,8 +6,9 @@ declare global {
 export interface Message {
   id: string;
   message: string;
-  userEmail: String;
-  likes: Number;
-  isChanged: Boolean;
+  userEmail: string;
+  likes: number;
+  isChanged: boolean;
+  date: string;
   sub_messages?: Message[];
 }

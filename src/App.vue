@@ -11,6 +11,7 @@ socket.emit('get_messages');
 socket.on('get_messages', (data: any) => {
   loading.value = false;
   messages.value = JSON.parse(data);
+  console.log(messages.value);
 });
 </script>
 <template>
@@ -28,11 +29,11 @@ socket.on('get_messages', (data: any) => {
 
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  widows: 100%;
+  height: 100vh;
+  background-color: #F5F6FA;
 }
 </style>

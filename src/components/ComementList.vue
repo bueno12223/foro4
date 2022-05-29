@@ -10,8 +10,11 @@ const props = defineProps<Props>()
 </script>
 <template>
     <div class="">
-        <ul v-for="{ id, message } in messages" :key="id">
-            <Comment :id="id" :message="message" />
+        <ul class="flex flex-col gap-5 p-10">
+            <li v-for="{ id, message, likes, userEmail, date } in messages" :key="id">
+                <Comment :id="id" :message="message" :likes="likes" :user-email="userEmail" :date="date" />
+            </li>
+
         </ul>
     </div>
 </template>
