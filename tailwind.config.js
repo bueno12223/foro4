@@ -24,7 +24,7 @@ module.exports = {
           'card-layout': '80px  1fr 80px',
   
           // Complex site-specific row configuration
-          'layout': '200px minmax(900px, 1fr) 100px',
+          'reply-layout': '80px 1fr 116px',
         }
       },
     },

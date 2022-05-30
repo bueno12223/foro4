@@ -13,15 +13,13 @@ const props = defineProps({
         required: true
     },
 })
-watch(message, (value: String) => {
-    message.value = value.replace(/([@])\w+/g, (match: String) => {
-        return `<span class="font-medium text-moderate-blue cursor-pointer">${match}</span>`
-    })
-})
 </script>
 <template>
-    <section class="col-span-1 flex gap-4 align-center pl-1">
+    <section class=" mt-4 grid grid-cols-reply-layout rounded-lg p-4 pt-6 w-3/4 m-auto bg-white hover:drop-shadow">
         <UserBadgeVue :user-email="userEmail" :id="id" />
-        <textarea v-model.lazy="message" :name="userEmail" :id="id" cols="30" rows="10"></textarea>
+        <textarea contentEditable
+            class="h-24 p-4 border-moderate-blue outline-0 border-solid resize-none border-2 rounded-lg" elastic
+            v-model="message" :name="userEmail" :id="id" cols="30" rows="5"></textarea>
+        <button class="px-6 py-3 h-min bg-moderate-blue rounded-lg text-white ml-4">REPLY</button>
     </section>
 </template>

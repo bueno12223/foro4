@@ -45,8 +45,11 @@ const formatMessage = computed(() => {
     })
 })
 const toggleShowReply: any = () => {
-    props.changeReplySelected(props.id)
-    currentColor.value = '#5357B6'
+    if (props.id == props.replySelected) {
+        props.changeReplySelected('')
+    } else {
+        props.changeReplySelected(props.id)
+    }
 }
 </script>
 <template>
