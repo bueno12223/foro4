@@ -19,8 +19,6 @@ socket.on('get_messages', (data: any) => {
     <div class="m-auto" v-if="loading">
       <Loader />
     </div>
-    <div class="m-auto" v-else>
-    </div>
     <ComementListVue :messages="messages" :isSubMessage="false" />
   </div>
 

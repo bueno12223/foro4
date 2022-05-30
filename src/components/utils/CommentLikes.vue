@@ -12,7 +12,7 @@ const props = defineProps({
 </script>
 <template>
     <section
-        class="bg-light-gray flex flex-col w-10 h-24 items-center	justify-center rounded-lg gap-3 row-span-3 justify-self-center">
+        class=" order-3 m-auto	bg-light-gray flex sm:flex-col px-4 py-2 h-fit sm:mb-[42px] items-center rounded-lg gap-3 sm:row-start-1 sm:row-end-3 justify-self-center">
         <svg :class="hoveringPlus" @mouseenter="hoveringPlus = 'fill-moderate-blue'" class="cursor-pointer"
             @mouseleave="hoveringPlus = 'fill-light-grayish-blue'" width="11" height="11" fill="none"
             xmlns="http://www.w3.org/2000/svg">

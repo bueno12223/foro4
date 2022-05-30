@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
-import { formatRelative } from 'date-fns'
+import { format } from 'date-fns'
 // @ts-ignore
 import md5 from 'md5'
 const props = defineProps({
@@ -18,7 +18,7 @@ const props = defineProps({
     }
 })
 const formatDate = computed(() => {
-    return formatRelative(new Date(props.date), new Date())
+    return format(new Date(props.date), 'MMM d, yyyy')
 })
 const getGravatar = computed(() => {
     return `https://www.gravatar.com/avatar/${md5(props.userEmail)}?s=32&f=y&d=retro`
@@ -28,9 +28,9 @@ const formatClass = computed(() => {
 })
 </script>
 <template>
-    <section class="col-span-1 flex gap-4 align-center pl-1">
+    <section class="col-start-1 col-end sm:col-start-2 flex gap-4 align-center pl-1 h-8">
         <img :src="getGravatar" alt="userEmail" class="rounded-full m-0" :class="formatClass">
         <p v-if="fullSize" class="mt-1 font-medium">{{ userEmail }}</p>
-        <p v-if="fullSize" class="mt-1 text-grayish-Blue font-norrmal">{{ formatDate }}</p>
+        <p v-if="fullSize" class="mt-1 text-grayish-Blue font-norrmal min-w-[106px]">{{ formatDate }}</p>
     </section>
 </template>

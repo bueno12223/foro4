@@ -14,12 +14,12 @@ const changeReplySelected = (id: string): void => {
 }
 </script>
 <template>
-    <ul class="flex flex-col gap-5 p-10">
-        <li v-for="{ id, message, likes, userEmail, date, isChanged } in messages" :key="id">
-            <Comment :message="message" :likes="likes" :replySelected="replySelected"
-                :changeReplySelected="changeReplySelected" :id="id" :isChanged="isChanged" :user-email="userEmail"
-                :date="date" :isSubMessage="isSubMessage" />
-        </li>
+    <ul class="grid gap-5 py-8 px-4 w-fit m-auto justify-items-center" v-if="(messages && messages.length != 0)"
+        :class="isSubMessage ? 'px-0 py-0 w-auto justify-items-stretch mt-8 border-l-2	ml-[4%] pl-[4%] border-light-gray' : ''">
+        <Comment v-for="{ id, message, likes, userEmail, date, isChanged, sub_messages } in messages" :key="id"
+            :is-sub-message="false" :replySelected="replySelected" :changeReplySelected="changeReplySelected" :id="id"
+            :message="message" :likes="likes" :user-email="userEmail" :date="date" :is-changed="isChanged"
+            :sub_messages="sub_messages" />
 
     </ul>
 </template>
