@@ -21,7 +21,7 @@ socket.on('get_messages', (data: any) => {
     </div>
     <div class="m-auto" v-else>
     </div>
-    <ComementListVue :messages="messages" />
+    <ComementListVue :messages="messages" :isSubMessage="false" />
   </div>
 
 

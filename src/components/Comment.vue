@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onBeforeMount, ref, toRefs } from 'vue';
+import { computed, onBeforeMount, Ref, ref, toRefs } from 'vue';
 import { Message } from '../types';
 // @ts-ignore
 import UserBadgeVue from './utils/UserBadge.vue';
@@ -7,38 +7,20 @@ import UserBadgeVue from './utils/UserBadge.vue';
 import CommentLikesVue from './utils/CommentLikes.vue';
 // @ts-ignore
 import ReplyVue from './Reply.vue';
+// @ts-ignore
+import ComementListVue from './ComementList.vue';
 
-const props = defineProps({
-    id: {
-        type: String,
-        required: true
-    },
-    message: {
-        type: String,
-        required: true
-    },
-    likes: {
-        type: Number,
-        default: 0
-    },
-    userEmail: {
-        type: String,
-        required: true
-    },
-    date: {
-        type: Number,
-    },
-    changeReplySelected: {
-        type: Function,
-        required: true
-    },
-    replySelected: {
-        type: String,
-        required: true
-    }
 
-})
-const currentColor = ref('#C5C6EF')
+interface Props extends Message {
+    isSubMessage: Boolean;
+    changeReplySelected: Function;
+    replySelected: String;
+
+}
+const props = defineProps<Props>()
+console.log(props)
+
+const currentColor: Ref = ref('#C5C6EF')
 const formatMessage = computed(() => {
     return props.message.replace(/([@])\w+/g, (match) => {
         return `<span class="font-medium text-moderate-blue cursor-pointer">${match}</span>`
@@ -71,5 +53,6 @@ const toggleShowReply: any = () => {
             <p class="text-grayish-Blue font-normal text-left p-2 pb-4" v-html="formatMessage"></p>
         </article>
         <ReplyVue :userEmail="userEmail" v-show="replySelected == id" :id="id" />
+        <!-- <ComementListVue :messages="sub_messages" :isSubMessage="true" /> -->
     </div>
 </template>
