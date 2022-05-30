@@ -5,7 +5,9 @@ import { Message } from '../types';
 import UserBadgeVue from './utils/UserBadge.vue';
 // @ts-ignore
 import CommentLikesVue from './utils/CommentLikes.vue';
-const showReply = ref(false);
+// @ts-ignore
+import ReplyVue from './Reply.vue';
+
 const props = defineProps({
     id: {
         type: String,
@@ -25,7 +27,16 @@ const props = defineProps({
     },
     date: {
         type: Number,
+    },
+    changeReplySelected: {
+        type: Function,
+        required: true
+    },
+    replySelected: {
+        type: String,
+        required: true
     }
+
 })
 const currentColor = ref('#C5C6EF')
 const formatMessage = computed(() => {
@@ -33,10 +44,10 @@ const formatMessage = computed(() => {
         return `<span class="font-medium text-moderate-blue cursor-pointer">${match}</span>`
     })
 })
-const toggleShowReply: any = computed(() => {
-    showReply.value = !showReply.value
+const toggleShowReply: any = () => {
+    props.changeReplySelected(props.id)
     currentColor.value = '#5357B6'
-})
+}
 </script>
 <template>
     <div>
@@ -56,6 +67,6 @@ const toggleShowReply: any = computed(() => {
             </button>
             <p class="text-grayish-Blue font-normal text-left p-2 pb-4" v-html="formatMessage"></p>
         </article>
-
+        <ReplyVue :userEmail="userEmail" v-show="replySelected == id" :id="id" />
     </div>
 </template>
