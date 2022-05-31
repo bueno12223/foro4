@@ -21,7 +21,7 @@ module.exports = {
         },
         gridTemplateColumns: {
           // Simple 8 row grid
-          'card-layout': '50px  1fr 80px',
+          'card-layout': '50px  1fr 150px',
   
           // Complex site-specific row configuration
           'reply-layout': '80px 1fr 116px',

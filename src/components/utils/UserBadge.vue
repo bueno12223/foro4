@@ -28,7 +28,8 @@ const formatClass = computed(() => {
 })
 </script>
 <template>
-    <section class="col-start-1 col-end sm:col-start-2 flex gap-4 align-center pl-1 h-8">
+    <section class="col-start-1 col-end flex gap-4 align-center pl-1 h-8 sm:flex"
+        :class="fullSize ? 'sm:col-start-2' : 'hidden'">
         <img :src="getGravatar" alt="userEmail" class="rounded-full m-0" :class="formatClass">
         <p v-if="fullSize" class="mt-1 font-medium">{{ userEmail }}</p>
         <p v-if="fullSize" class="mt-1 text-grayish-Blue font-norrmal min-w-[106px]">{{ formatDate }}</p>
