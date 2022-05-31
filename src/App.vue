@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Ref, ref } from 'vue';
+import { Ref, ref, computed } from 'vue';
 import Loader from './components/Loader.vue';
 import Banner from './components/utils/Banner.vue';
 import { useStore } from 'vuex'
@@ -7,6 +7,8 @@ import { useStore } from 'vuex'
 import ComementList from './components/ComementList.vue';
 // @ts-ignore
 import DeleteBanner from './components/utils/DeleteBanner.vue';
+// @ts-ignore
+import RegisterBanner from './components/utils/RegisterBanner.vue';
 let messages: Ref = ref([]);
 let loading: Ref = ref(true);
 
@@ -22,17 +24,21 @@ socket.on('get_messages', (data: any) => {
 
 // set uerName
 const store: any = useStore();
-store.commit('changeUserName', 'jesus')
-
 // hanlder delete message
 const toggleShowDelete = (): void => {
   store.commit('increment')
 }
+const registerUser = (userName: string): void => {
+  store.commit('changeUserName', userName)
+}
+const getUserName = computed(() => {
+  return !store.state.userName
+})
 </script>
 <template>
   <div class="">
     <div class="bg-very-light-gray">
-      <div class="m-auto" v-if="loading">
+      <div class="m-auto" v-if="!loading && getUserName">
         <Loader />
       </div>
       <div class="" v-else>
@@ -40,6 +46,7 @@ const toggleShowDelete = (): void => {
       </div>
     </div>
     <DeleteBanner />
+    <RegisterBanner v-show="getUserName" @registerUser="registerUser" />
   </div>
 
 
