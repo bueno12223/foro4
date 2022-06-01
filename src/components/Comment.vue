@@ -56,9 +56,9 @@ const toggleShowDelete = (): void => {
 const isMineMessage = props.userEmail == store.state.userName
 </script>
 <template>
-    <li>
+    <li class="w-full">
         <article
-            class=" items-center max-w-2xl grid grid-rows-[auto_1fr_auto] min-w-[240px] m-0 grid-cols-3 sm:grid-cols-card-layout rounded-lg p-4 py-6 bg-white hover:drop-shadow">
+            class=" items-center max-w-2xl grid grid-rows-[auto_1fr_auto] m-0 grid-cols-3 sm:grid-cols-card-layout rounded-lg p-4 py-6 bg-white hover:drop-shadow">
             <CommentLikesVue :likes="likes" />
             <UserBadgeVue :isMineMessage="isMineMessage" :fullSize="true" :user-email="userEmail" :date="date" />
             <CommentActionsVue @toggleShowDelete="toggleShowDelete" :isMineMessage="isMineMessage" :id="id"

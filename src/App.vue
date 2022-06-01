@@ -18,8 +18,11 @@ socket.emit('get_messages');
 
 socket.on('get_messages', (data: any) => {
   loading.value = false;
+  console.log(data);
   messages.value = JSON.parse(data);
-  console.log(messages.value);
+});
+socket.on("connect", () => {
+  store.commit('setSocket', socket);
 });
 
 // set uerName
