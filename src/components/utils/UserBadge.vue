@@ -15,6 +15,14 @@ const props = defineProps({
     fullSize: {
         type: Boolean,
         default: false,
+    },
+    isMineMessage: {
+        type: Boolean,
+        default: false,
+    },
+    isSubMessage: {
+        type: Boolean,
+        default: false,
     }
 })
 const formatDate = computed(() => {

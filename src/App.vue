@@ -9,39 +9,40 @@ import ComementList from './components/ComementList.vue';
 import DeleteBanner from './components/utils/DeleteBanner.vue';
 // @ts-ignore
 import RegisterBanner from './components/utils/RegisterBanner.vue';
+// @ts-ignore
+
+import Reply from './components/Reply.vue';
 let messages: Ref = ref([]);
 let loading: Ref = ref(true);
+const store: any = useStore();
 
 // connect to socket
 const socket = window.io('http://localhost:5000');
-socket.emit('get_messages');
 
 socket.on('get_messages', (data: any) => {
   loading.value = false;
-  console.log(data);
   messages.value = JSON.parse(data);
+  // save messages to store
+  store.commit('setMessages', JSON.parse(data));
 });
 socket.on("connect", () => {
   store.commit('setSocket', socket);
-});
+  socket.emit('get_messages');
+})
 
 // set uerName
-const store: any = useStore();
-// hanlder delete message
-const toggleShowDelete = (): void => {
-  store.commit('increment')
-}
+
 const registerUser = (userName: string): void => {
   store.commit('changeUserName', userName)
 }
-const getUserName = computed(() => {
+const getUserNameShow = computed(() => {
   return !store.state.userName
 })
 </script>
 <template>
   <div class="">
     <div class="bg-very-light-gray">
-      <div class="m-auto" v-if="!loading && getUserName">
+      <div class="m-auto" v-if="!loading && getUserNameShow">
         <Loader />
       </div>
       <div class="" v-else>
@@ -49,7 +50,7 @@ const getUserName = computed(() => {
       </div>
     </div>
     <DeleteBanner />
-    <RegisterBanner v-show="getUserName" @registerUser="registerUser" />
+    <RegisterBanner v-show="getUserNameShow" @registerUser="registerUser" />
   </div>
 
 

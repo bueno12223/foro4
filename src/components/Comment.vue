@@ -30,7 +30,7 @@ interface Props {
     isChanged: boolean;
     date: number;
     sub_messages?: SubMessage[];
-    isSubMessage: Boolean;
+    isSubMessage: boolean;
     changeReplySelected: Function;
     replySelected: String
 }
@@ -51,18 +51,22 @@ const toggleShowReply: any = () => {
 const store: any = useStore();
 
 const toggleShowDelete = (): void => {
-    store.commit('increment')
+    if (props.isSubMessage) {
+        store.commit('incrementSub', props.id)
+    } else {
+        store.commit('increment', props.id)
+    }
 }
 const isMineMessage = props.userEmail == store.state.userName
 </script>
 <template>
-    <li class="w-full">
+    <li class="w-full 	">
         <article
-            class=" items-center max-w-2xl grid grid-rows-[auto_1fr_auto] m-0 grid-cols-3 sm:grid-cols-card-layout rounded-lg p-4 py-6 bg-white hover:drop-shadow">
+            class="items-center max-w-2xl grid grid-rows-[auto_1fr_auto] m-0 grid-cols-3 sm:grid-cols-card-layout rounded-lg p-4 py-6 bg-white hover:drop-shadow">
             <CommentLikesVue :likes="likes" />
-            <UserBadgeVue :isMineMessage="isMineMessage" :fullSize="true" :user-email="userEmail" :date="date" />
-            <CommentActionsVue @toggleShowDelete="toggleShowDelete" :isMineMessage="isMineMessage" :id="id"
-                @toggleShowReply="toggleShowReply" />
+            <UserBadgeVue :isMineMessage="isMineMessage" :fullSize="true" :userEmail="userEmail" :date="date" />
+            <CommentActionsVue :isSubMessage="isSubMessage" @toggleShowDelete="toggleShowDelete"
+                :isMineMessage="isMineMessage" :id="id" @toggleShowReply="toggleShowReply" />
             <p class=" self-baseline col-span-3 sm:col-span-2 sm:order-4 text-grayish-Blue font-normal text-left p-2 h-fit"
                 v-html="formatMessage">
             </p>
@@ -70,4 +74,4 @@ const isMineMessage = props.userEmail == store.state.userName
         <ReplyVue :userEmail="userEmail" v-show="replySelected == id" :id="id" />
         <ComementListVue :messages="sub_messages" :isSubMessage="true" />
     </li>
-</template>
+</template>e
