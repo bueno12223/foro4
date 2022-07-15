@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, inject, Ref, ref, provide } from 'vue';
+import { computed, inject, Ref, ref, watch } from 'vue';
 // @ts-ignore
 import UserBadgeVue from './utils/UserBadge.vue';
 // @ts-ignore
@@ -8,6 +8,7 @@ import CommentLikesVue from './utils/CommentLikes.vue';
 import ReplyVue from './Reply.vue';
 // @ts-ignore
 import ComementListVue from './ComementList.vue';
+import SubCommentListVue from './SubCommentList.vue';
 // @ts-ignore
 import CommentActionsVue from './utils/CommentActions.vue';
 import { useStore } from 'vuex'
@@ -30,9 +31,7 @@ interface Props {
     isChanged: boolean;
     date: number;
     sub_messages?: SubMessage[];
-    isSubMessage: boolean;
     changeReplySelected: Function;
-    replySelected: String
 }
 const props = defineProps<Props>()
 
@@ -41,37 +40,22 @@ const formatMessage = computed(() => {
         return `<span class="font-medium text-moderate-blue cursor-pointer">${match}</span>`
     })
 })
-const toggleShowReply: any = () => {
-    if (props.id == props.replySelected) {
-        props.changeReplySelected('')
-    } else {
-        props.changeReplySelected(props.id)
-    }
-}
 const store: any = useStore();
-
-const toggleShowDelete = (): void => {
-    if (props.isSubMessage) {
-        store.commit('incrementSub', props.id)
-    } else {
-        store.commit('increment', props.id)
-    }
-}
 const isMineMessage = props.userEmail == store.state.userName
 </script>
 <template>
-    <li class="w-full 	">
+    <li class="w-full">
         <article
             class="items-center max-w-2xl grid grid-rows-[auto_1fr_auto] m-0 grid-cols-3 sm:grid-cols-card-layout rounded-lg p-4 py-6 bg-white hover:drop-shadow">
             <CommentLikesVue :likes="likes" />
             <UserBadgeVue :isMineMessage="isMineMessage" :fullSize="true" :userEmail="userEmail" :date="date" />
-            <CommentActionsVue :isSubMessage="isSubMessage" @toggleShowDelete="toggleShowDelete"
-                :isMineMessage="isMineMessage" :id="id" @toggleShowReply="toggleShowReply" />
+            <CommentActionsVue
+                :isMineMessage="isMineMessage" :id="id" />
             <p class=" self-baseline col-span-3 sm:col-span-2 sm:order-4 text-grayish-Blue font-normal text-left p-2 h-fit"
                 v-html="formatMessage">
             </p>
         </article>
-        <ReplyVue :userEmail="userEmail" v-show="replySelected == id" :id="id" />
-        <ComementListVue :messages="sub_messages" :isSubMessage="true" />
+        <ReplyVue :userEmail="userEmail" v-show="store.state.replySelected == id" :id="id" />
+        <SubCommentListVue :messages="sub_messages" :message_id="id" />
     </li>
 </template>e

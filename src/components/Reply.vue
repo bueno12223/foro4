@@ -41,6 +41,7 @@ const saveMessaege = (): void => {
             message_id: props.id
         });
         message.value = '';
+        store.commit('setReplySelected', '')
     }
 }
 const getButtonName = computed(() => {

@@ -11,34 +11,17 @@ const store: any = useStore();
 // callbacks
 const isSubMessage = store.state.isSubMessage;
 const toggleShowDelete = (): void => {
-    store.commit('increment')
+    store.commit('setDelete')
 }
 const handleDelete = () => {
     // get socket from store
     const socket = store.state.socket
     // emit delete message
-    console.log('id', store.state.id, 'subId', store.state.subId)
     socket.emit('delete_message', {
-        message_id: getMessageIdBySubId(store.state.id, store.state.subId),
+        message_id: store.state.id,
         sub_message_id: store.state.subId
     })
-    store.commit('increment')
-}
-const getMessageIdBySubId = (id: string | undefined, subId: String): String => {
-    if (id) {
-        return id;
-    }
-    // get messages from store
-    const messages = store.state.messages
-    // find message by subId
-    const mesage = messages.find((message: Message) => {
-        if (message.sub_messages) {
-            return message.sub_messages.find((subMessage: Message) => {
-                return subMessage.id == subId
-            })
-        }
-    })
-    return mesage.id
+    store.commit('setDelete')
 }
 // computed
 const getOpenDelete = computed((): boolean => {

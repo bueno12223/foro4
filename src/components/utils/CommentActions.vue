@@ -1,11 +1,9 @@
 <script setup lang="ts">
 import { computed } from 'vue';
+import { useStore } from 'vuex';
+
 const props = defineProps({
     isMineMessage: {
-        type: Boolean,
-        default: false
-    },
-    isSubMessage: {
         type: Boolean,
         default: false
     },
@@ -13,10 +11,26 @@ const props = defineProps({
         type: String,
         required: true
     },
+    sub_id: {
+        type: String,
+    }
 })
+const store: any = useStore();
+
+const setReply = () => {
+    store.commit('setReplySelected', props.id)
+}
+const setDelete = (id?: string, sub_id?: string) => {
+    console.log(id, sub_id)
+    store.commit('setDelete', {
+        id: id,
+        sub_id: sub_id
+    })
+}
+
 </script>
 <template>
-    <button v-if="!isMineMessage" @click="$emit('toggleShowReply')"
+    <button v-if="!isMineMessage" @click="setReply()"
         class="flex items-center gap-2.5  col-start-3 h-fit  justify-self-end group">
         <svg class=" group-hover:fill-moderate-blue fill-light-grayish-blue" width="14" height="13" fill="none"
             xmlns="http://www.w3.org/2000/svg">
@@ -28,7 +42,7 @@ const props = defineProps({
     </button>
     <div v-else class="flex col-span-2 gap-4 justify-self-end md:col-span-1">
 
-        <button @click="$emit('toggleShowDelete')" class="flex items-center gap-2.5 col-start-3 h-fit group">
+        <button @click="setDelete(id, sub_id)" class="flex items-center gap-2.5 col-start-3 h-fit group">
             <svg class=" group-hover:fill-soft-red fill-pale-red" width="12" height="14" fill="none"
                 xmlns="http://www.w3.org/2000/svg">
                 <!-- @ts-ignore -->

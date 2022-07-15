@@ -7,30 +7,36 @@ interface Store {
   openDelete: boolean
   userName: string
   socket: any
-  id: string
-  subId: string,
-  messages: Array<Message> | Array<any>
+  id?: string
+  subId?: string | undefined,
+  messages: Array<Message> | Array<any>,
+  replySelected: String
 }
 // Create a new store instance.
 const store = createStore({
   state () {
     return {
       openDelete: false,
-      userName: 'jeus',
+      userName: 'jessus',
       socket: null,
       id: '',
       subId: '',
-      messages: []
+      messages: [],
+      replySelected: ''
     }
   },
   mutations: {
-    increment (state: Store, isSubMessage: string) {
-      state.openDelete = !state.openDelete
-      state.id = isSubMessage
+    setReplySelected (state: Store, id: String) {
+      if(state.replySelected == id){
+        state.replySelected = ''
+      } else {
+        state.replySelected = id
+      }
     },
-    incrementSub (state: Store, isSubMessage: string) {
-      state.openDelete = !state.openDelete
-      state.subId = isSubMessage
+    setDelete(store, {id = '', sub_id = ''} = {}) {
+      store.id = id
+      store.subId = sub_id
+      store.openDelete = !store.openDelete
     },
     changeUserName (state: Store, userName: string) {
       state.userName = userName
