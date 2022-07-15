@@ -13,7 +13,10 @@ const props = defineProps({
     },
     sub_id: {
         type: String,
-    }
+    },
+    message: {
+        type: String,
+    },
 })
 const store: any = useStore();
 
@@ -52,7 +55,7 @@ const setDelete = (id?: string, sub_id?: string) => {
             <p class="font-bold text-pale-red justify-self-end group-hover:text-soft-red">
                 Delete</p>
         </button>
-        <button @click="$emit('toggleShowReply')" class="flex items-center gap-2.5 col-start-3 h-fit group">
+        <button @click="setReply()" class="flex items-center gap-2.5 col-start-3 h-fit group">
             <svg class=" group-hover:fill-moderate-blue fill-light-grayish-blue" width="14" height="14" fill="none"
                 xmlns="http://www.w3.org/2000/svg">
                 <path

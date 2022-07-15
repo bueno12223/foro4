@@ -17,12 +17,12 @@ const store = createStore({
   state () {
     return {
       openDelete: false,
-      userName: 'jessus',
+      userName: 'jesusss',
       socket: null,
       id: '',
       subId: '',
       messages: [],
-      replySelected: ''
+      replySelected: '',
     }
   },
   mutations: {
@@ -33,7 +33,7 @@ const store = createStore({
         state.replySelected = id
       }
     },
-    setDelete(store, {id = '', sub_id = ''} = {}) {
+    setDelete(store, {id, sub_id} = {}) {
       store.id = id
       store.subId = sub_id
       store.openDelete = !store.openDelete

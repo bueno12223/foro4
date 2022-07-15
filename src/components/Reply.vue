@@ -3,7 +3,8 @@ import { ref, watch, Ref, computed } from '@vue/runtime-core';
 // @ts-ignore
 import UserBadgeVue from './utils/UserBadge.vue';
 import { useStore } from 'vuex'
-const message: Ref = ref('');
+const store: any = useStore();
+
 const validateMessage: Ref = ref(false);
 const props = defineProps({
     id: {
@@ -14,12 +15,22 @@ const props = defineProps({
         type: String,
         required: true
     },
+    isMineMessage: {
+        type: Boolean,
+        default: false
+    },
     isNew: {
         type: Boolean,
         default: false
     },
 })
-
+const getMessageInital =() => {
+    if(props.isMineMessage){
+        return (store.state.messages.find((message: any) => message.id == props.id) || {}).message
+    }
+    return ''
+}
+const message: Ref = ref(getMessageInital());
 watch(message, (newVal: String) => {
     if (newVal.length >= 1) {
         validateMessage.value = true;
@@ -28,25 +39,44 @@ watch(message, (newVal: String) => {
     }
 })
 // get userName from store
-const store: any = useStore();
 const userName = store.state.userName
 
 const saveMessaege = (): void => {
     // get socket from store
     const socket = store.state.socket
-    if (validateMessage) {
-        socket.emit(props.isNew ? 'message' : 'sub_message', {
-            message: message.value,
-            userEmail: userName,
-            message_id: props.id
-        });
+    if (validateMessage.value) {
+        if(props.isMineMessage){
+            socket.emit('update_message', {
+                message_id: props.id,
+                message: message.value
+            })
+        }else if(props.isNew){
+            socket.emit('message', {
+                message: message.value,
+                userEmail: userName,
+            });
+        } else {
+            socket.emit('sub_message', {
+                message: message.value,
+                userEmail: userName,
+                message_id: props.id
+            });
+        }
+
         message.value = '';
         store.commit('setReplySelected', '')
     }
 }
 const getButtonName = computed(() => {
-    return props.isNew ? 'Send' : 'Reply';
+    if (props.isNew) {
+        return 'Send'
+    } else if(props.isMineMessage) {
+        return 'Edit'
+    } else {
+        return 'Reply'
+    }
 })
+watch
 </script>
 <template>
     <section class=" mt-4  block sm:grid grid-cols-reply-layout rounded-lg p-4 pt-6 bg-white hover:drop-shadow">
