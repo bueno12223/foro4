@@ -17,7 +17,7 @@ const store = createStore({
   state () {
     return {
       openDelete: false,
-      userName: 'jesusss',
+      userName: '',
       socket: null,
       id: '',
       subId: '',
