@@ -15,7 +15,7 @@ watch(userName, (newVal: String) => {
 <template>
     <Banner>
         <h2 class="text-xl font-medium text-left">Register</h2>
-        <p class="text-left">Please, put your userName to continue</p>
+        <p class="text-left">Please write your name to continue</p>
         <input v-model="userName" type="text"
             class="h-12 p-4 w-[90%] border-moderate-blue outline-0 border-solid border-2 rounded-lg" />
         <button :class="validate ? 'bg-moderate-blue cursor-pointer' : 'cursor-default bg-light-grayish-blue'"
